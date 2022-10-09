@@ -1,4 +1,5 @@
 const { types } = require('hardhat/config');
+const { HardhatPluginError } = require('hardhat/plugins');
 const open = require('open');
 const readline = require('readline');
 
@@ -17,13 +18,22 @@ task(
 ).addOptionalParam(
   'value', 'message value (denominated in wei)', 0, types.int
 ).addFlag(
+  'open', 'Automatically open txn.xyz URL in browser'
+).addFlag(
   'prompt', 'Require user confirmation of successful transaction before continuing execution'
 ).setAction(async function (args, hre) {
   const url = await hre.run('txn-dot-xyz-encode', args);
 
-  await open(url);
+  console.log(`Generated txn.xyz URL: ${ url }`);
 
-  console.log(`Opened URL in browser: ${ url }`);
+  if (args.open) {
+    try {
+      await open(url);
+      console.log(`Opened URL in browser.`);
+    } catch (e) {
+      throw new HardhatPluginError('failed to open txn.xyz URL in browser');
+    }
+  }
 
   if (args.prompt) {
     console.log('Confirm pending transaction in browser.  Press enter to continue.');
