@@ -26,8 +26,10 @@ task(
     fn: args.fn,
   };
 
-  if (!args.chainId) {
-    // note case change in variable name
+  // note case change in variable name (chainId => chainID)
+  if (args.chainId) {
+    query.chainID = args.chainId;
+  } else {
     query.chainID = parseInt(await hre.network.provider.send('eth_chainId'));
   }
 
