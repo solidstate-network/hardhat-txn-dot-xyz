@@ -43,7 +43,7 @@ task(
       await new Promise((resolve) => rl.question('> ', resolve));
       rl.close();
     } catch (e) {
-      console.error('Prompt request failed. Continuing execution...', e);
+      throw new HardhatPluginError('failed to request user input; aborting');
     }
   }
 });
