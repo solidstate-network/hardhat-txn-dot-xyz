@@ -5,6 +5,8 @@ Format and trigger secure on-chain transactions via [txn.xyz](https://www.txn.xy
 ## Installation
 
 ```bash
+npm install --save-dev @solidstate/hardhat-txn-dot-xyz
+# or
 yarn add --dev @solidstate/hardhat-txn-dot-xyz
 ```
 
