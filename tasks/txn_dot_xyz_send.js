@@ -16,19 +16,24 @@ task(
   'fnParams', 'target function call arguments', [], types.json
 ).addOptionalParam(
   'value', 'message value (denominated in wei)', 0, types.int
+).addFlag(
+  'prompt', 'Require user confirmation of successful transaction before continuing execution'
 ).setAction(async function (args, hre) {
   const url = await hre.run('txn-dot-xyz-encode', args);
 
   await open(url);
 
   console.log(`Opened URL in browser: ${ url }`);
-  console.log('Confirm pending transaction in browser.  Press enter to continue.');
 
-  try {
-    const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-    await new Promise((resolve) => rl.question('> ', resolve));
-    rl.close();
-  } catch (e) {
-    console.error('Prompt request failed. Continuing execution...', e);
+  if (args.prompt) {
+    console.log('Confirm pending transaction in browser.  Press enter to continue.');
+
+    try {
+      const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+      await new Promise((resolve) => rl.question('> ', resolve));
+      rl.close();
+    } catch (e) {
+      console.error('Prompt request failed. Continuing execution...', e);
+    }
   }
 });
