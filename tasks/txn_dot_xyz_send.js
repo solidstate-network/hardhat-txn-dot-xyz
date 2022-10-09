@@ -1,5 +1,6 @@
 const { types } = require('hardhat/config');
 const { HardhatPluginError } = require('hardhat/plugins');
+const open = require('open');
 const { stringifyUrl } = require('query-string');
 
 const API_ENDPOINT = 'https://txn.xyz/v0/decode/';
@@ -19,6 +20,7 @@ task(
 ).setAction(async function (args, hre) {
   const url = await hre.run('txn-dot-xyz-encode', args);
 
-  // TODO: open url in browser
+  await open(url);
+
   // TODO: wait for user interaction
 })
