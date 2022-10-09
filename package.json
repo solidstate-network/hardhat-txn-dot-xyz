@@ -1,0 +1,34 @@
+{
+  "name": "@solidstate/hardhat-txn-dot-xyz",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Generate and execute on-chain transactions via txn.xyz",
+  "keywords": [
+    "hardhat",
+    "buidler",
+    "txn-dot-xyz",
+    "txn",
+    "ethers",
+    "web3",
+    "solidity",
+    "solc",
+    "smart-contracts",
+    "ethereum",
+    "blockchain",
+    "wow"
+  ],
+  "repository": "github:solidstate-network/hardhat-txn-dot-xyz",
+  "author": "Nick Barry",
+  "main": "index.js",
+  "peerDependencies": {
+    "hardhat": "^2.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.25.0",
+    "hardhat": "^2.11.2",
+    "query-string": "^7.1.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
