@@ -1,7 +1,6 @@
 const { types } = require('hardhat/config');
-const { HardhatPluginError } = require('hardhat/plugins');
 const open = require('open');
-const { stringifyUrl } = require('query-string');
+const readline = require('readline');
 
 const API_ENDPOINT = 'https://txn.xyz/v0/decode/';
 
@@ -22,5 +21,14 @@ task(
 
   await open(url);
 
-  // TODO: wait for user interaction
-})
+  console.log(`Opened URL in browser: ${ url }`);
+  console.log('Confirm pending transaction in browser.  Press enter to continue.');
+
+  try {
+    const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+    await new Promise((resolve) => rl.question('> ', resolve));
+    rl.close();
+  } catch (e) {
+    console.error('Prompt request failed. Continuing execution...', e);
+  }
+});
