@@ -7,10 +7,10 @@ const API_ENDPOINT = 'https://txn.xyz/v0/decode/';
 
 task(
   'txn-dot-xyz-send', 'Generate txn.xyz URL for given transaction parameters and optionally open link in browser'
-).addParam(
-  'contractAddress', 'Target address', undefined, types.string
 ).addOptionalParam(
   'chainId', 'Target chain ID', undefined, types.int
+).addParam(
+  'contractAddress', 'Target address', undefined, types.string
 ).addOptionalParam(
   'fn', 'Target function name', undefined, types.string
 ).addOptionalParam(
