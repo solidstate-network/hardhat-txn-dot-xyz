@@ -15,8 +15,6 @@ task(
   'fn', 'Target function name', undefined, types.string
 ).addOptionalParam(
   'fnParams', 'Target function call arguments', [], types.json
-).addOptionalParam(
-  'value', 'Message value (denominated in wei)', 0, types.int
 ).addFlag(
   'noBrowser', 'Don\'t automatically open txn.xyz URL in browser'
 ).addFlag(

@@ -14,8 +14,6 @@ subtask(
   'fn', 'Target function name', undefined, types.string
 ).addOptionalParam(
   'fnParams', 'Target function call arguments', [], types.json
-).addOptionalParam(
-  'value', 'Message value (denominated in wei)', 0, types.int
 ).setAction(async function (args, hre) {
   if (!Array.isArray(args.fnParams)) {
     throw new HardhatPluginError('fnParams must be array');
@@ -35,10 +33,6 @@ subtask(
 
   if (args.fnParams.length) {
     query.fnParams = args.fnParams.map((arg, index) => `${ index }=${ arg }`).join(',');
-  }
-
-  if (args.value > 0) {
-    query.value = args.value;
   }
 
   return stringifyUrl({ url: API_ENDPOINT, query });
