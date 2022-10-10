@@ -41,10 +41,5 @@ subtask(
     query.value = args.value;
   }
 
-  console.log('ARGS');
-  console.log(args);
-  console.log('QUERY');
-  console.log(query);
-
   return stringifyUrl({ url: API_ENDPOINT, query });
 });
