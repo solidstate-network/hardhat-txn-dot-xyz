@@ -23,11 +23,13 @@
   "peerDependencies": {
     "hardhat": "^2.0.0"
   },
-  "devDependencies": {
-    "eslint": "^8.25.0",
-    "hardhat": "^2.11.2",
+  "dependencies": {
     "open": "^8.4.0",
     "query-string": "^7.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.25.0",
+    "hardhat": "^2.11.2"
   },
   "publishConfig": {
     "access": "public"
