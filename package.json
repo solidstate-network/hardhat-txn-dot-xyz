@@ -1,6 +1,6 @@
 {
   "name": "@solidstate/hardhat-txn-dot-xyz",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "description": "Generate and execute on-chain transactions via txn.xyz",
   "keywords": [
