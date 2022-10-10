@@ -7,7 +7,7 @@ const API_ENDPOINT = 'https://txn.xyz/v0/decode/';
 subtask(
   'txn-dot-xyz-encode'
 ).addParam(
-  'target', 'Target address', undefined, types.string
+  'contractAddress', 'Target address', undefined, types.string
 ).addOptionalParam(
   'chainId', 'Target chain ID', undefined, types.int
 ).addOptionalParam(
@@ -20,7 +20,7 @@ subtask(
   }
 
   const query = {
-    contractAddress: args.target,
+    contractAddress: args.contractAddress,
     fn: args.fn,
   };
 
