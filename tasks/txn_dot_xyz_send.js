@@ -18,7 +18,7 @@ task(
 ).addOptionalParam(
   'value', 'Message value (denominated in wei)', 0, types.int
 ).addFlag(
-  'open', 'Automatically open txn.xyz URL in browser'
+  'noBrowser', 'Don\'t automatically open txn.xyz URL in browser'
 ).addFlag(
   'prompt', 'Require user confirmation of successful transaction before continuing execution'
 ).setAction(async function (args, hre) {
@@ -26,7 +26,7 @@ task(
 
   console.log(`Generated txn.xyz URL: ${ url }`);
 
-  if (args.open) {
+  if (!args.noBrowser) {
     try {
       await open(url);
       console.log(`Opened URL in browser.`);
