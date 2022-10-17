@@ -16,7 +16,7 @@ task(
 ).addOptionalParam(
   'fnParams', 'Target function call arguments', [], types.json
 ).addFlag(
-  'noBrowser', 'Don\'t automatically open txn.xyz URL in browser'
+  'browser', 'Automatically open txn.xyz URL in browser'
 ).addFlag(
   'prompt', 'Require user confirmation of successful transaction before continuing execution'
 ).setAction(async function (args, hre) {
@@ -24,7 +24,7 @@ task(
 
   console.log(`Generated txn.xyz URL: ${ url }`);
 
-  if (!args.noBrowser) {
+  if (args.browser) {
     try {
       await open(url);
       console.log(`Opened URL in browser.`);
