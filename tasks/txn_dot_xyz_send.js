@@ -3,8 +3,6 @@ const { HardhatPluginError } = require('hardhat/plugins');
 const open = require('open');
 const readline = require('readline');
 
-const API_ENDPOINT = 'https://txn.xyz/v0/decode/';
-
 task(
   'txn-dot-xyz-send',
   'Generate txn.xyz URL for given transaction parameters and optionally open link in browser',
