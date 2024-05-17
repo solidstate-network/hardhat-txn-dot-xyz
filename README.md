@@ -43,13 +43,27 @@ await hre.run('txn-dot-xyz-send', {
   chainId: 1,
   contractAddress: '0x6b175474e89094c44da98b954eedeac495271d0f',
   fn: 'approve',
-  fnParams: ["0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045", 0],
+  fnParams: ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', 0],
 });
 ```
 
 ### Optional Flags
 
-| Flag | Description |
-|-|-|
-| `prompt` | whether to block execution until use confirms that transaction has been mined |
-| `browser` | whether to automatically open generated URL in the default browser |
+| Flag      | Description                                                                   |
+| --------- | ----------------------------------------------------------------------------- |
+| `prompt`  | whether to block execution until use confirms that transaction has been mined |
+| `browser` | whether to automatically open generated URL in the default browser            |
+
+## Development
+
+Install dependencies via Yarn:
+
+```bash
+yarn install
+```
+
+Setup Husky to format code on commit:
+
+```bash
+yarn prepare
+```

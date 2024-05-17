@@ -20,6 +20,10 @@
   "repository": "github:solidstate-network/hardhat-txn-dot-xyz",
   "author": "Nick Barry",
   "main": "index.js",
+  "scripts": {
+    "prepare": "husky",
+    "prettier": "prettier --write ."
+  },
   "dependencies": {
     "open": "^10.1.0",
     "query-string": "^9.0.0"
@@ -28,8 +32,12 @@
     "hardhat": "^2.0.0"
   },
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "eslint": "^9.2.0",
-    "hardhat": "^2.22.4"
+    "hardhat": "^2.22.4",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5"
   },
   "publishConfig": {
     "access": "public"
