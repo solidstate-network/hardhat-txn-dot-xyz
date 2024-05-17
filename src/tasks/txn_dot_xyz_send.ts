@@ -1,7 +1,7 @@
-const { types } = require('hardhat/config');
-const { HardhatPluginError } = require('hardhat/plugins');
-const open = require('open');
-const readline = require('readline');
+import { task, types } from 'hardhat/config';
+import { HardhatPluginError } from 'hardhat/plugins';
+import open from 'open';
+import readline from 'readline';
 
 task(
   'txn-dot-xyz-send',

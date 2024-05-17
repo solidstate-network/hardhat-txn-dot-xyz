@@ -1,6 +1,6 @@
-const { types } = require('hardhat/config');
-const { HardhatPluginError } = require('hardhat/plugins');
-const { stringifyUrl } = require('query-string');
+import { subtask, types } from 'hardhat/config';
+import { HardhatPluginError } from 'hardhat/plugins';
+import queryString from 'query-string';
 
 const API_ENDPOINT = 'https://txn.xyz/v0/decode/';
 
@@ -19,23 +19,25 @@ subtask('txn-dot-xyz-encode')
       throw new HardhatPluginError('fnParams must be array');
     }
 
-    const query = {
+    const query: {
+      contractAddress: string;
+      fn: string;
+      fnParams?: string;
+      chainID: number;
+    } = {
       contractAddress: args.contractAddress,
       fn: args.fn,
+      // note case change in variable name (chainId => chainID)
+      chainID:
+        args.chainId ??
+        parseInt(await hre.network.provider.send('eth_chainId')),
     };
 
-    // note case change in variable name (chainId => chainID)
-    if (args.chainId) {
-      query.chainID = args.chainId;
-    } else {
-      query.chainID = parseInt(await hre.network.provider.send('eth_chainId'));
-    }
-
     if (args.fnParams.length) {
-      query.fnParams = args.fnParams
+      query.fnParams = (args.fnParams as string[])
         .map((arg, index) => `${index}=${arg}`)
         .join(',');
     }
 
-    return stringifyUrl({ url: API_ENDPOINT, query });
+    return queryString.stringifyUrl({ url: API_ENDPOINT, query });
   });
