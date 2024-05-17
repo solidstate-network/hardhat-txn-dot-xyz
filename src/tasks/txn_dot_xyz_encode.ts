@@ -1,3 +1,4 @@
+import { name as packageName } from '../../package.json';
 import { subtask, types } from 'hardhat/config';
 import { HardhatPluginError } from 'hardhat/plugins';
 import queryString from 'query-string';
@@ -16,7 +17,7 @@ subtask('txn-dot-xyz-encode')
   )
   .setAction(async function (args, hre) {
     if (!Array.isArray(args.fnParams)) {
-      throw new HardhatPluginError('fnParams must be array');
+      throw new HardhatPluginError(packageName, 'fnParams must be array');
     }
 
     const query: {

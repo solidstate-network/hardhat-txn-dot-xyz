@@ -1,3 +1,4 @@
+import { name as packageName } from '../../package.json';
 import { task, types } from 'hardhat/config';
 import { HardhatPluginError } from 'hardhat/plugins';
 import open from 'open';
@@ -31,7 +32,10 @@ task(
         await open(url);
         console.log(`Opened URL in browser.`);
       } catch (e) {
-        throw new HardhatPluginError('failed to open txn.xyz URL in browser');
+        throw new HardhatPluginError(
+          packageName,
+          'failed to open txn.xyz URL in browser',
+        );
       }
     }
 
@@ -48,7 +52,10 @@ task(
         await new Promise((resolve) => rl.question('> ', resolve));
         rl.close();
       } catch (e) {
-        throw new HardhatPluginError('failed to request user input; aborting');
+        throw new HardhatPluginError(
+          packageName,
+          'failed to request user input; aborting',
+        );
       }
     }
   });
