@@ -1,11 +1,12 @@
 import { name as packageName } from '../../package.json';
+import { TASK_TXN_DOT_XYZ_SEND } from '../task_names';
 import { task, types } from 'hardhat/config';
 import { HardhatPluginError } from 'hardhat/plugins';
 import open from 'open';
 import readline from 'readline';
 
 task(
-  'txn-dot-xyz-send',
+  TASK_TXN_DOT_XYZ_SEND,
   'Generate txn.xyz URL for given transaction parameters and optionally open link in browser',
 )
   .addOptionalParam('chainId', 'Target chain ID', undefined, types.int)

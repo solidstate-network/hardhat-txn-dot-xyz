@@ -1,11 +1,12 @@
 import { name as packageName } from '../../package.json';
+import { TASK_TXN_DOT_XYZ_ENCODE } from '../task_names';
 import { subtask, types } from 'hardhat/config';
 import { HardhatPluginError } from 'hardhat/plugins';
 import queryString from 'query-string';
 
 const API_ENDPOINT = 'https://txn.xyz/v0/decode/';
 
-subtask('txn-dot-xyz-encode')
+subtask(TASK_TXN_DOT_XYZ_ENCODE)
   .addOptionalParam('chainId', 'Target chain ID', undefined, types.int)
   .addParam('contractAddress', 'Target address', undefined, types.string)
   .addOptionalParam('fn', 'Target function name', undefined, types.string)
