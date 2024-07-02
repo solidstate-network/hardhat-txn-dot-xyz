@@ -23,7 +23,7 @@ task(
     'prompt',
     'Require user confirmation of successful transaction before continuing execution',
   )
-  .setAction(async function (args, hre) {
+  .setAction(async (args, hre) => {
     const url = await hre.run('txn-dot-xyz-encode', args);
 
     console.log(`Generated txn.xyz URL: ${url}`);

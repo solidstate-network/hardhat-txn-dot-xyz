@@ -16,7 +16,7 @@ subtask(TASK_TXN_DOT_XYZ_ENCODE)
     [],
     types.json,
   )
-  .setAction(async function (args, hre) {
+  .setAction(async (args, hre) => {
     if (!Array.isArray(args.fnParams)) {
       throw new HardhatPluginError(packageName, 'fnParams must be array');
     }
