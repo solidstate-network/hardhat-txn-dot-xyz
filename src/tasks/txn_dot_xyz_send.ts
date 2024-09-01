@@ -11,7 +11,7 @@ task(
 )
   .addOptionalParam('chainId', 'Target chain ID', undefined, types.int)
   .addParam('contractAddress', 'Target address', undefined, types.string)
-  .addOptionalParam('fn', 'Target function name', undefined, types.string)
+  .addParam('fn', 'Target function name', undefined, types.string)
   .addOptionalParam(
     'fnParams',
     'Target function call arguments',
