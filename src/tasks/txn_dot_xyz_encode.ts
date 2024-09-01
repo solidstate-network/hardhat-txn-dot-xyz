@@ -16,7 +16,6 @@ subtask(TASK_TXN_DOT_XYZ_ENCODE)
     [],
     types.json,
   )
-  .addOptionalParam('abi', 'Contract ABI', undefined, types.json)
   .setAction(async (args, hre) => {
     if (!Array.isArray(args.fnParams)) {
       throw new HardhatPluginError(packageName, 'fnParams must be array');
@@ -27,7 +26,6 @@ subtask(TASK_TXN_DOT_XYZ_ENCODE)
       fn: string;
       fnParams?: string;
       chainID: number;
-      abi: string;
     } = {
       contractAddress: args.contractAddress,
       fn: args.fn,
@@ -35,7 +33,6 @@ subtask(TASK_TXN_DOT_XYZ_ENCODE)
       chainID:
         args.chainId ??
         parseInt(await hre.network.provider.send('eth_chainId')),
-      abi: JSON.stringify(args.abi),
     };
 
     if (args.fnParams.length) {
