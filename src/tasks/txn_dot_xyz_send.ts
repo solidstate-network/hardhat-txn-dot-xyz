@@ -18,6 +18,7 @@ task(
     [],
     types.json,
   )
+  .addOptionalParam('abi', 'Contract ABI', undefined, types.json)
   .addFlag('browser', 'Automatically open txn.xyz URL in browser')
   .addFlag(
     'prompt',
