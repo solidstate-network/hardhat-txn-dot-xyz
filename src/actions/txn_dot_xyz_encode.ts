@@ -15,6 +15,8 @@ const action: NewTaskActionFunction<ExportTxnDotXyzEncodeArguments> = async (
   const url = await encodeTransaction(hre, args);
   // TODO: print table with all parameters for easy verification
   console.log(url);
+
+  return url;
 };
 
 export default action;
