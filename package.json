@@ -26,7 +26,8 @@
     "build": "yarn clean && tsc --build",
     "clean": "tsc --build --clean",
     "prepare": "husky",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write .",
+    "test": "yarn build && tsx --test"
   },
   "files": [
     "dist/",
