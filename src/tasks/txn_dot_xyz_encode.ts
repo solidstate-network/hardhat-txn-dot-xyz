@@ -15,8 +15,7 @@ export default task(TASK_TXN_DOT_XYZ_ENCODE)
   .addVariadicArgument({
     name: 'fnParams',
     description: 'Target function call arguments',
-    // defaultValue: [],
-    // types.json,
+    defaultValue: [],
   })
   .addOption({
     name: 'chainId',
