@@ -1,6 +1,7 @@
-import { TASK_TXN_DOT_XYZ_ENCODE } from '../../src/task_names';
-import { expect } from 'chai';
+import { TASK_TXN_DOT_XYZ_ENCODE } from '../../src/task_names.js';
 import hre from 'hardhat';
+import assert from 'node:assert';
+import { describe, it } from 'node:test';
 
 describe(TASK_TXN_DOT_XYZ_ENCODE, () => {
   it('returns txn.xyz transaction URL with encoded query string', async () => {
@@ -8,13 +9,14 @@ describe(TASK_TXN_DOT_XYZ_ENCODE, () => {
     const contractAddress = '0x' + '0'.repeat(40);
     const fn = 'test';
 
-    const url = await hre.run(TASK_TXN_DOT_XYZ_ENCODE, {
+    const url = await hre.tasks.getTask(TASK_TXN_DOT_XYZ_ENCODE).run({
       chainId,
       contractAddress,
       fn,
     });
 
-    expect(url).to.equal(
+    assert.equal(
+      url,
       'https://txn.xyz/v0/decode/?chainID=1&contractAddress=0x0000000000000000000000000000000000000000&fn=test',
     );
   });
@@ -23,12 +25,13 @@ describe(TASK_TXN_DOT_XYZ_ENCODE, () => {
     const contractAddress = '0x' + '0'.repeat(40);
     const fn = 'test';
 
-    const url = await hre.run(TASK_TXN_DOT_XYZ_ENCODE, {
+    const url = await hre.tasks.getTask(TASK_TXN_DOT_XYZ_ENCODE).run({
       contractAddress,
       fn,
     });
 
-    expect(url).to.equal(
+    assert.equal(
+      url,
       'https://txn.xyz/v0/decode/?chainID=31337&contractAddress=0x0000000000000000000000000000000000000000&fn=test',
     );
   });
@@ -38,13 +41,14 @@ describe(TASK_TXN_DOT_XYZ_ENCODE, () => {
     const fn = 'test';
     const abi: any[] = [];
 
-    const url = await hre.run(TASK_TXN_DOT_XYZ_ENCODE, {
+    const url = await hre.tasks.getTask(TASK_TXN_DOT_XYZ_ENCODE).run({
       contractAddress,
       fn,
       abi,
     });
 
-    expect(url).to.equal(
+    assert.equal(
+      url,
       'https://txn.xyz/v0/decode/?abi=%5B%5D&chainID=31337&contractAddress=0x0000000000000000000000000000000000000000&fn=test',
     );
   });
