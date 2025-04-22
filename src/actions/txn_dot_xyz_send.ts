@@ -7,6 +7,7 @@ interface ExportTxnDotXyzEncodeArguments {
   fnParams: string[];
   chainId: number;
   browser: boolean;
+  prompt: boolean;
 }
 
 const action: NewTaskActionFunction<ExportTxnDotXyzEncodeArguments> = async (
@@ -14,7 +15,7 @@ const action: NewTaskActionFunction<ExportTxnDotXyzEncodeArguments> = async (
   hre,
 ) => {
   const url = await encodeTransaction(hre, args);
-  await sendTransaction(url, { browser: args.browser });
+  await sendTransaction(url, { browser: args.browser, prompt: args.prompt });
 };
 
 export default action;
