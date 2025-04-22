@@ -8,3 +8,5 @@ const plugin: HardhatPlugin = {
   npmPackage: pkg.name,
   tasks: [taskTxnDotXyzEncode, taskTxnDotXyzSend],
 };
+
+export default plugin;
