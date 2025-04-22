@@ -9,7 +9,8 @@ const API_ENDPOINT = 'https://txn.xyz/v0/decode/';
 
 export const encodeTransaction = async (
   hre: HardhatRuntimeEnvironment,
-  args,
+  // TODO: type
+  args: any,
 ) => {
   if (!Array.isArray(args.fnParams)) {
     throw new HardhatPluginError(pkg.name, 'fnParams must be array');
