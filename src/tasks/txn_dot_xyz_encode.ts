@@ -1,25 +1,38 @@
-import { name as packageName } from '../../package.json';
-import { TASK_TXN_DOT_XYZ_ENCODE } from '../task_names';
-import { subtask, types } from 'hardhat/config';
+import pkg from '../../package.json';
+import { TASK_TXN_DOT_XYZ_ENCODE } from '../task_names.js';
+import { task } from 'hardhat/config';
 import { HardhatPluginError } from 'hardhat/plugins';
+import { ArgumentType } from 'hardhat/types/arguments';
 import queryString from 'query-string';
 
 const API_ENDPOINT = 'https://txn.xyz/v0/decode/';
 
-subtask(TASK_TXN_DOT_XYZ_ENCODE)
-  .addOptionalParam('chainId', 'Target chain ID', undefined, types.int)
-  .addParam('contractAddress', 'Target address', undefined, types.string)
-  .addParam('fn', 'Target function name', undefined, types.string)
-  .addOptionalParam(
-    'fnParams',
-    'Target function call arguments',
-    [],
-    types.json,
-  )
-  .addOptionalParam('abi', 'Contract ABI', undefined, types.json)
+export default task(TASK_TXN_DOT_XYZ_ENCODE)
+  .addPositionalArgument({
+    name: 'contractAddress',
+    description: 'Target address',
+  })
+  .addPositionalArgument({
+    name: 'fn',
+    description: 'Target function name',
+    defaultValue: undefined,
+  })
+  .addVariadicArgument({
+    name: 'fnParams',
+    description: 'Target function call arguments',
+    // defaultValue: [],
+    // types.json,
+  })
+  .addOption({
+    name: 'chainId',
+    description: 'Target chain ID',
+    defaultValue: 0,
+    type: ArgumentType.INT,
+  })
+  // .addOptionalParam('abi', 'Contract ABI', undefined, types.json)
   .setAction(async (args, hre) => {
     if (!Array.isArray(args.fnParams)) {
-      throw new HardhatPluginError(packageName, 'fnParams must be array');
+      throw new HardhatPluginError(pkg.name, 'fnParams must be array');
     }
 
     const query: {
@@ -45,4 +58,5 @@ subtask(TASK_TXN_DOT_XYZ_ENCODE)
     }
 
     return queryString.stringifyUrl({ url: API_ENDPOINT, query });
-  });
+  })
+  .build();

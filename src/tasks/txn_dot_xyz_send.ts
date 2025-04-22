@@ -1,31 +1,48 @@
-import { name as packageName } from '../../package.json';
-import { TASK_TXN_DOT_XYZ_SEND } from '../task_names';
-import { task, types } from 'hardhat/config';
+import pkg from '../../package.json';
+import { TASK_TXN_DOT_XYZ_SEND } from '../task_names.js';
+import { task } from 'hardhat/config';
 import { HardhatPluginError } from 'hardhat/plugins';
+import { ArgumentType } from 'hardhat/types/arguments';
 import open from 'open';
 import readline from 'readline';
 
-task(
-  TASK_TXN_DOT_XYZ_SEND,
-  'Generate txn.xyz URL for given transaction parameters and optionally open link in browser',
-)
-  .addOptionalParam('chainId', 'Target chain ID', undefined, types.int)
-  .addParam('contractAddress', 'Target address', undefined, types.string)
-  .addParam('fn', 'Target function name', undefined, types.string)
-  .addOptionalParam(
-    'fnParams',
-    'Target function call arguments',
-    [],
-    types.json,
+export default task(TASK_TXN_DOT_XYZ_SEND)
+  .setDescription(
+    'Generate txn.xyz URL for given transaction parameters and optionally open link in browser',
   )
-  .addOptionalParam('abi', 'Contract ABI', undefined, types.json)
-  .addFlag('browser', 'Automatically open txn.xyz URL in browser')
-  .addFlag(
-    'prompt',
-    'Require user confirmation of successful transaction before continuing execution',
-  )
+  .addPositionalArgument({
+    name: 'contractAddress',
+    description: 'Target address',
+  })
+  .addPositionalArgument({
+    name: 'fn',
+    description: 'Target function name',
+    defaultValue: undefined,
+  })
+  .addVariadicArgument({
+    name: 'fnParams',
+    description: 'Target function call arguments',
+    // defaultValue: [],
+    // types.json,
+  })
+  .addOption({
+    name: 'chainId',
+    description: 'Target chain ID',
+    defaultValue: 0,
+    type: ArgumentType.INT,
+  })
+  // .addOptionalParam('abi', 'Contract ABI', undefined, types.json)
+  .addFlag({
+    name: 'browser',
+    description: 'Automatically open txn.xyz URL in browser',
+  })
+  // .addFlag({
+  //   name: 'prompt',
+  //   description:
+  //     'Require user confirmation of successful transaction before continuing execution',
+  // })
   .setAction(async (args, hre) => {
-    const url = await hre.run('txn-dot-xyz-encode', args);
+    const url = await hre.tasks.getTask('txn-dot-xyz-encode').run(args);
 
     console.log(`Generated txn.xyz URL: ${url}`);
 
@@ -35,7 +52,7 @@ task(
         console.log(`Opened URL in browser.`);
       } catch (e) {
         throw new HardhatPluginError(
-          packageName,
+          pkg.name,
           'failed to open txn.xyz URL in browser',
         );
       }
@@ -55,9 +72,10 @@ task(
         rl.close();
       } catch (e) {
         throw new HardhatPluginError(
-          packageName,
+          pkg.name,
           'failed to request user input; aborting',
         );
       }
     }
-  });
+  })
+  .build();
