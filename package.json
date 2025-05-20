@@ -29,11 +29,11 @@
     "src/"
   ],
   "scripts": {
-    "build": "yarn clean && tsc --build",
+    "build": "pnpm clean && tsc --build",
     "clean": "tsc --build --clean",
     "prepare": "husky",
     "prettier": "prettier --write .",
-    "test": "yarn build && tsx --test"
+    "test": "pnpm build && tsx --test"
   },
   "dependencies": {
     "open": "^10.1.2",
