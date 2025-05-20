@@ -37,16 +37,16 @@
   },
   "dependencies": {
     "open": "^10.1.2",
-    "query-string": "^9.1.2"
+    "query-string": "^9.2.0"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
-    "hardhat": "^3.0.0-next.6",
+    "hardhat": "^3.0.0-next.8",
     "husky": "^9.1.7",
-    "knip": "^5.56.0",
-    "lint-staged": "^15.5.2",
+    "knip": "^5.57.0",
+    "lint-staged": "^16.0.0",
     "prettier": "^3.5.3",
-    "prettier-plugin-packagejson": "^2.5.11",
+    "prettier-plugin-packagejson": "^2.5.14",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"
   },
