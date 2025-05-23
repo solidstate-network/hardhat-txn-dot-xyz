@@ -1,16 +1,8 @@
 import { encode, send } from '../lib/transaction.js';
+import type { ExportTxnDotXyzSendArguments } from '../types.js';
 import type { NewTaskActionFunction } from 'hardhat/types/tasks';
 
-interface ExportTxnDotXyzEncodeArguments {
-  contractAddress: string;
-  fn?: string;
-  fnParams: string[];
-  chainId: number;
-  browser: boolean;
-  prompt: boolean;
-}
-
-const action: NewTaskActionFunction<ExportTxnDotXyzEncodeArguments> = async (
+const action: NewTaskActionFunction<ExportTxnDotXyzSendArguments> = async (
   args,
   hre,
 ) => {

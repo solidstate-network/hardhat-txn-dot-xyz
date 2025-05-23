@@ -22,7 +22,8 @@
   "type": "module",
   "exports": {
     ".": "./dist/index.js",
-    "./transaction": "./dist/lib/transaction.js"
+    "./transaction": "./dist/lib/transaction.js",
+    "./types": "./dist/types.js"
   },
   "types": "./dist/index.d.ts",
   "files": [
