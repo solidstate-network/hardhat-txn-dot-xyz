@@ -1,4 +1,4 @@
-import { encodeTransaction } from '../lib/transaction.js';
+import { encode } from '../lib/transaction.js';
 import type { NewTaskActionFunction } from 'hardhat/types/tasks';
 
 interface ExportTxnDotXyzEncodeArguments {
@@ -12,7 +12,7 @@ const action: NewTaskActionFunction<ExportTxnDotXyzEncodeArguments> = async (
   args,
   hre,
 ) => {
-  const url = await encodeTransaction(hre, args);
+  const url = await encode(hre, args);
   // TODO: print table with all parameters for easy verification
   console.log(url);
 

@@ -1,4 +1,4 @@
-import { encodeTransaction, sendTransaction } from '../lib/transaction.js';
+import { encode, send } from '../lib/transaction.js';
 import type { NewTaskActionFunction } from 'hardhat/types/tasks';
 
 interface ExportTxnDotXyzEncodeArguments {
@@ -14,8 +14,8 @@ const action: NewTaskActionFunction<ExportTxnDotXyzEncodeArguments> = async (
   args,
   hre,
 ) => {
-  const url = await encodeTransaction(hre, args);
-  await sendTransaction(url, { browser: args.browser, prompt: args.prompt });
+  const url = await encode(hre, args);
+  await send(url, { browser: args.browser, prompt: args.prompt });
 };
 
 export default action;

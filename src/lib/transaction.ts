@@ -7,7 +7,7 @@ import readline from 'readline';
 
 const API_ENDPOINT = 'https://txn.xyz/v0/decode/';
 
-export const encodeTransaction = async (
+export const encode = async (
   hre: HardhatRuntimeEnvironment,
   // TODO: type
   args: any,
@@ -44,7 +44,7 @@ export const encodeTransaction = async (
   return queryString.stringifyUrl({ url: API_ENDPOINT, query });
 };
 
-export const sendTransaction = async (
+export const send = async (
   url: string,
   options: { browser?: boolean; prompt?: boolean } = {},
 ) => {
