@@ -21,7 +21,8 @@
   "author": "Nick Barry",
   "type": "module",
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./transaction": "./dist/lib/transaction.js"
   },
   "types": "./dist/index.d.ts",
   "files": [

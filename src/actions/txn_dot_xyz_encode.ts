@@ -1,4 +1,4 @@
-import { encodeTransaction } from '../lib/txn_dot_xyz.js';
+import { encodeTransaction } from '../lib/transaction.js';
 import type { NewTaskActionFunction } from 'hardhat/types/tasks';
 
 interface ExportTxnDotXyzEncodeArguments {
