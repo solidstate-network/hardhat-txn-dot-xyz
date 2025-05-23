@@ -19,9 +19,9 @@ export default task(TASK_TXN_DOT_XYZ_ENCODE)
   })
   .addOption({
     name: 'chainId',
-    description: 'Target chain ID',
-    defaultValue: 0,
-    type: ArgumentType.INT,
+    description: 'Target chain ID (defaults to chain id of active network)',
+    defaultValue: undefined,
+    type: ArgumentType.STRING_WITHOUT_DEFAULT,
   })
   // .addOptionalParam('abi', 'Contract ABI', undefined, types.json)
   .setAction(import.meta.resolve('../actions/txn_dot_xyz_encode.js'))

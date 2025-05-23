@@ -2,7 +2,7 @@ export interface ExportTxnDotXyzEncodeArguments {
   contractAddress: string;
   fn?: string;
   fnParams: string[];
-  chainId: number;
+  chainId?: string;
 }
 
 export interface ExportTxnDotXyzSendArguments

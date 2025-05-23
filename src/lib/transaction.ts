@@ -18,20 +18,21 @@ export const encode = async (
 
   const { provider } = await hre.network.connect();
 
+  // note case change in variable name (chainId => chainID)
+  const chainID =
+    args.chainId ??
+    ((await provider.request({ method: 'eth_chainId' })) as string);
+
   const query: {
     contractAddress: string;
     fn: string;
     fnParams?: string;
-    chainID: number;
+    chainID: string;
     abi: string;
   } = {
     contractAddress: args.contractAddress,
     fn: args.fn,
-    // note case change in variable name (chainId => chainID)
-    // TODO: is chain id of 0 valid?  It's not possible here because the task option must have a number as default value
-    chainID:
-      args.chainId ||
-      parseInt((await provider.request({ method: 'eth_chainId' })) as string),
+    chainID,
     abi: JSON.stringify(args.abi),
   };
 
