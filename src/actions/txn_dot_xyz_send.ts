@@ -6,7 +6,13 @@ const action: NewTaskActionFunction<ExportTxnDotXyzSendArguments> = async (
   args,
   hre,
 ) => {
-  const url = await encode(hre, args);
+  let { chainId } = args;
+
+  if (chainId) {
+    chainId = `0x${BigInt(chainId).toString(16)}`;
+  }
+
+  const url = await encode(hre, { ...args, chainId });
   await send(url, { browser: args.browser, prompt: args.prompt });
 };
 

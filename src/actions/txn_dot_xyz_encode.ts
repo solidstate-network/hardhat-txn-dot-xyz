@@ -6,7 +6,13 @@ const action: NewTaskActionFunction<ExportTxnDotXyzEncodeArguments> = async (
   args,
   hre,
 ) => {
-  const url = await encode(hre, args);
+  let { chainId } = args;
+
+  if (chainId) {
+    chainId = `0x${BigInt(chainId).toString(16)}`;
+  }
+
+  const url = await encode(hre, { ...args, chainId });
   // TODO: print table with all parameters for easy verification
   console.log(url);
 
