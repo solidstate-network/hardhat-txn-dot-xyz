@@ -1,46 +1,42 @@
 import pkg from '../../package.json';
+import type { TransactionOptions, TxnDotXyzV0Query } from '../types.js';
 import { HardhatPluginError } from 'hardhat/plugins';
 import type { HardhatRuntimeEnvironment } from 'hardhat/types/hre';
+import readline from 'node:readline';
 import open from 'open';
 import queryString from 'query-string';
-import readline from 'readline';
 
 const API_ENDPOINT = 'https://txn.xyz/v0/decode/';
 
 export const encode = async (
   hre: HardhatRuntimeEnvironment,
-  // TODO: type
-  args: any,
+  args: TransactionOptions,
 ) => {
-  if (!Array.isArray(args.fnParams)) {
-    throw new HardhatPluginError(pkg.name, 'fnParams must be array');
-  }
-
   const { provider } = await hre.network.connect();
 
   // note case change in variable name (chainId => chainID)
-  const chainID =
+  const chainID = parseInt(
     args.chainId ??
-    ((await provider.request({ method: 'eth_chainId' })) as string);
+      ((await provider.request({ method: 'eth_chainId' })) as string),
+  );
 
-  const query: {
-    contractAddress: string;
-    fn: string;
-    fnParams?: string;
-    chainID: string;
-    abi: string;
-  } = {
-    contractAddress: args.contractAddress,
-    fn: args.fn,
+  const { contractAddress } = args;
+
+  const fn = args.fn;
+
+  // TODO: infer ABI from `fn`
+  // const abi = args.abi ? JSON.stringify(args.abi) : undefined;
+
+  const fnParams =
+    args.fnParams &&
+    args.fnParams.map((arg, index) => `${index}=${arg}`).join(',');
+
+  const query: TxnDotXyzV0Query = {
     chainID,
-    abi: JSON.stringify(args.abi),
+    contractAddress,
+    fn,
+    fnParams,
   };
-
-  if (args.fnParams.length) {
-    query.fnParams = (args.fnParams as string[])
-      .map((arg, index) => `${index}=${arg}`)
-      .join(',');
-  }
 
   return queryString.stringifyUrl({ url: API_ENDPOINT, query });
 };

@@ -10,12 +10,10 @@ export default task(TASK_TXN_DOT_XYZ_ENCODE)
   .addPositionalArgument({
     name: 'fn',
     description: 'Target function name',
-    defaultValue: undefined,
   })
   .addVariadicArgument({
     name: 'fnParams',
     description: 'Target function call arguments',
-    defaultValue: [],
   })
   .addOption({
     name: 'chainId',
@@ -23,6 +21,5 @@ export default task(TASK_TXN_DOT_XYZ_ENCODE)
     defaultValue: undefined,
     type: ArgumentType.STRING_WITHOUT_DEFAULT,
   })
-  // .addOptionalParam('abi', 'Contract ABI', undefined, types.json)
   .setAction(import.meta.resolve('../actions/txn_dot_xyz_encode.js'))
   .build();

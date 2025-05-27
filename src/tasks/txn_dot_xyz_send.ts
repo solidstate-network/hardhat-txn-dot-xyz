@@ -13,12 +13,10 @@ export default task(TASK_TXN_DOT_XYZ_SEND)
   .addPositionalArgument({
     name: 'fn',
     description: 'Target function name',
-    defaultValue: undefined,
   })
   .addVariadicArgument({
     name: 'fnParams',
     description: 'Target function call arguments',
-    defaultValue: [],
   })
   .addOption({
     name: 'chainId',
@@ -26,7 +24,6 @@ export default task(TASK_TXN_DOT_XYZ_SEND)
     defaultValue: undefined,
     type: ArgumentType.STRING_WITHOUT_DEFAULT,
   })
-  // .addOptionalParam('abi', 'Contract ABI', undefined, types.json)
   .addFlag({
     name: 'browser',
     description: 'Automatically open txn.xyz URL in browser',
