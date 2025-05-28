@@ -8,8 +8,8 @@ export default task(TASK_TXN_DOT_XYZ_ENCODE)
     description: 'Target address',
   })
   .addPositionalArgument({
-    name: 'fn',
-    description: 'Target function name',
+    name: 'fnSignature',
+    description: 'Target function signature',
   })
   .addVariadicArgument({
     name: 'fnParams',

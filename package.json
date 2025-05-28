@@ -38,6 +38,7 @@
     "test": "pnpm build && tsx --test"
   },
   "dependencies": {
+    "@ethersproject/abi": "^5.8.0",
     "open": "^10.1.2",
     "query-string": "^9.2.0"
   },

@@ -1,5 +1,6 @@
 import pkg from '../../package.json';
 import type { TransactionOptions, TxnDotXyzV0Query } from '../types.js';
+import { FormatTypes, Interface } from '@ethersproject/abi';
 import { HardhatPluginError } from 'hardhat/plugins';
 import type { HardhatRuntimeEnvironment } from 'hardhat/types/hre';
 import readline from 'node:readline';
@@ -22,21 +23,30 @@ export const encode = async (
 
   const { contractAddress } = args;
 
-  const fn = args.fn;
+  const { fnSignature } = args;
 
-  // TODO: infer ABI from `fn`
-  // const abi = args.abi ? JSON.stringify(args.abi) : undefined;
+  // API v0 expects `fn` to be a function name without full signature
+  const [fn] = fnSignature.split('(');
 
-  const fnParams =
-    args.fnParams &&
-    args.fnParams.map((arg, index) => `${index}=${arg}`).join(',');
+  const contractInterface = new Interface([`function ${fnSignature}`]);
+
+  const fnParams = args.fnParams ?? [];
+
+  // validate that `fnParams` match `fnSignature`
+  contractInterface.encodeFunctionData(fnSignature, fnParams);
+
+  const abi = contractInterface.format(FormatTypes.json) as string;
 
   const query: TxnDotXyzV0Query = {
     chainID,
     contractAddress,
     fn,
-    fnParams,
+    abi,
   };
+
+  if (fnParams.length) {
+    query.fnParams = fnParams.map((arg, index) => `${index}=${arg}`).join(',');
+  }
 
   return queryString.stringifyUrl({ url: API_ENDPOINT, query });
 };
