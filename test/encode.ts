@@ -1,16 +1,16 @@
-import { TASK_TXN_DOT_XYZ_ENCODE } from '../../src/task_names.js';
+import { encode } from '../src/lib/transaction.js';
 import hre from 'hardhat';
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
 import queryString from 'query-string';
 
-describe(TASK_TXN_DOT_XYZ_ENCODE, () => {
+describe('encode', () => {
   it('returns txn.xyz transaction URL with encoded query string', async () => {
     const chainId = '0x1';
     const to = '0x' + '0'.repeat(40);
     const fnSignature = 'test()';
 
-    const url = await hre.tasks.getTask(TASK_TXN_DOT_XYZ_ENCODE).run({
+    const url = await encode(hre, {
       chainId,
       to,
       fnSignature,
@@ -32,7 +32,7 @@ describe(TASK_TXN_DOT_XYZ_ENCODE, () => {
     const to = '0x' + '0'.repeat(40);
     const fnSignature = 'test()';
 
-    const url = await hre.tasks.getTask(TASK_TXN_DOT_XYZ_ENCODE).run({
+    const url = await encode(hre, {
       to,
       fnSignature,
     });
