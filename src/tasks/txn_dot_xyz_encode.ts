@@ -4,7 +4,7 @@ import { ArgumentType } from 'hardhat/types/arguments';
 
 export default task(TASK_TXN_DOT_XYZ_ENCODE)
   .addPositionalArgument({
-    name: 'contractAddress',
+    name: 'to',
     description: 'Target address',
   })
   .addPositionalArgument({

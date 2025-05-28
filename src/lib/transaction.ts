@@ -21,7 +21,7 @@ export const encode = async (
       ((await provider.request({ method: 'eth_chainId' })) as string),
   );
 
-  const { contractAddress } = args;
+  const { to } = args;
 
   const { fnSignature } = args;
 
@@ -45,7 +45,7 @@ export const encode = async (
 
   const query: TxnDotXyzV0Query = {
     chainID,
-    contractAddress,
+    contractAddress: to,
     fn,
     abi,
   };

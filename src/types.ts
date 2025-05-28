@@ -1,6 +1,6 @@
 export interface ExportTxnDotXyzEncodeArguments {
   chainId?: string;
-  contractAddress: string;
+  to: string;
   fnSignature: string;
   fnParams?: string[];
 }
@@ -11,7 +11,6 @@ export interface ExportTxnDotXyzSendArguments
   prompt: boolean;
 }
 
-// TODO: type should match standard tx encoding options from ethers/viem
 export type TransactionOptions = ExportTxnDotXyzEncodeArguments;
 
 export type TxnDotXyzV0Query = {

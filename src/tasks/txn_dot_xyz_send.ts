@@ -7,7 +7,7 @@ export default task(TASK_TXN_DOT_XYZ_SEND)
     'Generate txn.xyz URL for given transaction parameters and optionally open link in browser',
   )
   .addPositionalArgument({
-    name: 'contractAddress',
+    name: 'to',
     description: 'Target address',
   })
   .addPositionalArgument({

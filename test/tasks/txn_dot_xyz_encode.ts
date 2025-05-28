@@ -7,12 +7,12 @@ import queryString from 'query-string';
 describe(TASK_TXN_DOT_XYZ_ENCODE, () => {
   it('returns txn.xyz transaction URL with encoded query string', async () => {
     const chainId = '0x1';
-    const contractAddress = '0x' + '0'.repeat(40);
+    const to = '0x' + '0'.repeat(40);
     const fnSignature = 'test()';
 
     const url = await hre.tasks.getTask(TASK_TXN_DOT_XYZ_ENCODE).run({
       chainId,
-      contractAddress,
+      to,
       fnSignature,
     });
 
@@ -22,18 +22,18 @@ describe(TASK_TXN_DOT_XYZ_ENCODE, () => {
 
     assert.deepEqual(parsed.query, {
       chainID: '1',
-      contractAddress,
+      contractAddress: to,
       fn: 'test',
       abi: '[{"type":"function","name":"test","constant":false,"payable":false,"inputs":[],"outputs":[]}]',
     });
   });
 
   it('encodes current chain id if not specified', async () => {
-    const contractAddress = '0x' + '0'.repeat(40);
+    const to = '0x' + '0'.repeat(40);
     const fnSignature = 'test()';
 
     const url = await hre.tasks.getTask(TASK_TXN_DOT_XYZ_ENCODE).run({
-      contractAddress,
+      to,
       fnSignature,
     });
 
@@ -43,7 +43,7 @@ describe(TASK_TXN_DOT_XYZ_ENCODE, () => {
 
     assert.deepEqual(parsed.query, {
       chainID: '31337',
-      contractAddress,
+      contractAddress: to,
       fn: 'test',
       abi: '[{"type":"function","name":"test","constant":false,"payable":false,"inputs":[],"outputs":[]}]',
     });
