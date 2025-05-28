@@ -37,7 +37,7 @@ export const encode = async (
   } catch (error) {
     throw new HardhatPluginError(
       pkg.name,
-      `invalid parameters for function signature ${fnSignature}: ${fnParams.join()}`,
+      `invalid parameters for function signature ${fnSignature}: ${fnParams.join(', ')}`,
     );
   }
 
