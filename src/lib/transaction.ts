@@ -32,8 +32,14 @@ export const encode = async (
 
   const fnParams = args.fnParams ?? [];
 
-  // validate that `fnParams` match `fnSignature`
-  contractInterface.encodeFunctionData(fnSignature, fnParams);
+  try {
+    contractInterface.encodeFunctionData(fnSignature, fnParams);
+  } catch (error) {
+    throw new HardhatPluginError(
+      pkg.name,
+      `invalid parameters for function signature ${fnSignature}: ${fnParams.join()}`,
+    );
+  }
 
   const abi = contractInterface.format(FormatTypes.json) as string;
 
