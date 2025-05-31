@@ -1,4 +1,4 @@
-import pkg from '../../package.json';
+import pkg from '../../package.json' with { type: 'json' };
 import type { TransactionOptions, TxnDotXyzV0Query } from '../types.js';
 import { FormatTypes, Interface } from '@ethersproject/abi';
 import { HardhatPluginError } from 'hardhat/plugins';

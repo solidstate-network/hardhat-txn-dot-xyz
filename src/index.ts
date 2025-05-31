@@ -1,4 +1,4 @@
-import pkg from '../package.json';
+import pkg from '../package.json' with { type: 'json' };
 import taskTxnDotXyzSend from './tasks/txn_dot_xyz_send.js';
 import type { HardhatPlugin } from 'hardhat/types/plugins';
 
