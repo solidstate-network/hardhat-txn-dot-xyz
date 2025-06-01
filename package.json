@@ -36,7 +36,7 @@
     "prepare": "husky",
     "prepublishOnly": "pnpm build",
     "prettier": "prettier --write .",
-    "test": "pnpm build && tsx --test"
+    "test": "pnpm clean && tsx --test"
   },
   "dependencies": {
     "@ethersproject/abi": "^5.8.0",
