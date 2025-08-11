@@ -34,5 +34,5 @@ export default task(TASK_TXN_DOT_XYZ_SEND)
     description:
       'Require user confirmation of successful transaction before continuing execution',
   })
-  .setAction(import.meta.resolve('../actions/txn_dot_xyz_send.js'))
+  .setAction(() => import('../actions/txn_dot_xyz_send.js'))
   .build();
