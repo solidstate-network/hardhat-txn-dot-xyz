@@ -1,8 +1,8 @@
-import HardhatTxnDotXyz from './src/index.js';
+import hardhatTxnDotXyz from './src/index.js';
 import { HardhatUserConfig } from 'hardhat/config';
 
 const config: HardhatUserConfig = {
-  plugins: [HardhatTxnDotXyz],
+  plugins: [hardhatTxnDotXyz],
 };
 
 export default config;
