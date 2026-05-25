@@ -13,7 +13,7 @@ export const encode = async (
   hre: HardhatRuntimeEnvironment,
   args: TransactionOptions,
 ) => {
-  const { provider } = await hre.network.connect();
+  const { provider } = await hre.network.create();
 
   // note case change in variable name (chainId => chainID)
   const chainID = parseInt(
