@@ -1,6 +1,7 @@
 {
   "name": "@solidstate/hardhat-txn-dot-xyz",
   "version": "0.3.0",
+  "private": true,
   "description": "Generate and execute on-chain transactions via txn.xyz",
   "keywords": [
     "hardhat",
