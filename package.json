@@ -1,7 +1,7 @@
 {
   "name": "@solidstate/hardhat-txn-dot-xyz",
   "version": "0.3.0",
-  "license": "MIT",
+  "private": true,
   "description": "Generate and execute on-chain transactions via txn.xyz",
   "keywords": [
     "hardhat",
@@ -18,36 +18,49 @@
     "wow"
   ],
   "repository": "github:solidstate-network/hardhat-txn-dot-xyz",
+  "license": "MIT",
   "author": "Nick Barry",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
-  "scripts": {
-    "build": "tsc --build",
-    "prepare": "husky",
-    "prettier": "prettier --write ."
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./transaction": "./dist/lib/transaction.js",
+    "./types": "./dist/types.js"
   },
+  "types": "./dist/index.d.ts",
   "files": [
     "dist/",
     "src/"
   ],
-  "dependencies": {
-    "open": "^8.4.0",
-    "query-string": "^7.1.1"
+  "scripts": {
+    "build": "pnpm clean && tsc --build",
+    "clean": "rm -rf dist/",
+    "prepare": "husky",
+    "prepublishOnly": "pnpm build",
+    "prettier": "prettier --write .",
+    "test": "pnpm clean && tsx --test --experimental-test-coverage"
   },
-  "peerDependencies": {
-    "hardhat": "^2.0.0"
+  "dependencies": {
+    "@ethersproject/abi": "^5.8.0",
+    "@solidstate/hardhat-solidstate-utils": "^1.0.2",
+    "open": "^11.0.0",
+    "query-string": "^9.4.0"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "@types/chai": "^4.3.19",
-    "@types/mocha": "^10.0.6",
-    "chai": "^4.4.1",
-    "hardhat": "^2.22.4",
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.2",
-    "prettier": "^3.2.5",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+    "@tsconfig/node22": "^22.0.5",
+    "@types/node": "^25.9.2",
+    "exec-staged": "^0.2.3",
+    "hardhat": "^3.8.0",
+    "husky": "^9.1.7",
+    "knip-exec-staged": "^5.63.1",
+    "prettier": "^3.8.3",
+    "prettier-plugin-packagejson": "^3.0.2",
+    "release-it": "^20.2.0",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  },
+  "peerDependencies": {
+    "hardhat": "^3.8.0"
   },
   "publishConfig": {
     "access": "public"

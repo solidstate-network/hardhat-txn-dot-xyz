@@ -1,63 +1,38 @@
-import { name as packageName } from '../../package.json';
-import { TASK_TXN_DOT_XYZ_SEND } from '../task_names';
-import { task, types } from 'hardhat/config';
-import { HardhatPluginError } from 'hardhat/plugins';
-import open from 'open';
-import readline from 'readline';
+import { TASK_TXN_DOT_XYZ_SEND } from '../task_names.js';
+import { task } from 'hardhat/config';
+import { ArgumentType } from 'hardhat/types/arguments';
 
-task(
-  TASK_TXN_DOT_XYZ_SEND,
-  'Generate txn.xyz URL for given transaction parameters and optionally open link in browser',
-)
-  .addOptionalParam('chainId', 'Target chain ID', undefined, types.int)
-  .addParam('contractAddress', 'Target address', undefined, types.string)
-  .addParam('fn', 'Target function name', undefined, types.string)
-  .addOptionalParam(
-    'fnParams',
-    'Target function call arguments',
-    [],
-    types.json,
+export default task(TASK_TXN_DOT_XYZ_SEND)
+  .setDescription(
+    'Generate txn.xyz URL for given transaction parameters and optionally open link in browser',
   )
-  .addOptionalParam('abi', 'Contract ABI', undefined, types.json)
-  .addFlag('browser', 'Automatically open txn.xyz URL in browser')
-  .addFlag(
-    'prompt',
-    'Require user confirmation of successful transaction before continuing execution',
-  )
-  .setAction(async (args, hre) => {
-    const url = await hre.run('txn-dot-xyz-encode', args);
-
-    console.log(`Generated txn.xyz URL: ${url}`);
-
-    if (args.browser) {
-      try {
-        await open(url);
-        console.log(`Opened URL in browser.`);
-      } catch (e) {
-        throw new HardhatPluginError(
-          packageName,
-          'failed to open txn.xyz URL in browser',
-        );
-      }
-    }
-
-    if (args.prompt) {
-      console.log(
-        'Confirm pending transaction in browser.  Press enter to continue.',
-      );
-
-      try {
-        const rl = readline.createInterface({
-          input: process.stdin,
-          output: process.stdout,
-        });
-        await new Promise((resolve) => rl.question('> ', resolve));
-        rl.close();
-      } catch (e) {
-        throw new HardhatPluginError(
-          packageName,
-          'failed to request user input; aborting',
-        );
-      }
-    }
-  });
+  .addPositionalArgument({
+    name: 'to',
+    description: 'Target address',
+  })
+  .addPositionalArgument({
+    name: 'fnSignature',
+    description: 'Target function signature',
+  })
+  .addVariadicArgument({
+    name: 'fnParams',
+    description: 'Target function call arguments',
+    defaultValue: [],
+  })
+  .addOption({
+    name: 'chainId',
+    description: 'Target chain ID (defaults to chain id of active network)',
+    defaultValue: undefined,
+    type: ArgumentType.STRING_WITHOUT_DEFAULT,
+  })
+  .addFlag({
+    name: 'browser',
+    description: 'Automatically open txn.xyz URL in browser',
+  })
+  .addFlag({
+    name: 'prompt',
+    description:
+      'Require user confirmation of successful transaction before continuing execution',
+  })
+  .setAction(() => import('../actions/txn_dot_xyz_send.js'))
+  .build();

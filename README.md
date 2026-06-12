@@ -7,7 +7,7 @@ Format and trigger secure on-chain transactions via [txn.xyz](https://www.txn.xy
 ```bash
 npm install --save-dev @solidstate/hardhat-txn-dot-xyz
 # or
-yarn add --dev @solidstate/hardhat-txn-dot-xyz
+pnpm add -D @solidstate/hardhat-txn-dot-xyz
 ```
 
 ## Usage
@@ -23,7 +23,7 @@ Output usage information via Hardhat:
 ```bash
 npx hardhat txn-dot-xyz-send --help
 # or
-yarn run hardhat txn-dot-xyz-send --help
+pnpm hardhat txn-dot-xyz-send --help
 ```
 
 ### Example
@@ -33,7 +33,7 @@ This example will encode a Mainnet transaction which revokes the sender's approv
 ```bash
 npx hardhat txn-dot-xyz-send --chain-id 1 --contract-address 0x6b175474e89094c44da98b954eedeac495271d0f --fn approve --fn-params '["0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045", 0]'
 # or
-yarn run hardhat txn-dot-xyz-send --chain-id 1 --contract-address 0x6b175474e89094c44da98b954eedeac495271d0f --fn approve --fn-params '["0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045", 0]'
+pnpm hardhat txn-dot-xyz-send --chain-id 1 --contract-address 0x6b175474e89094c44da98b954eedeac495271d0f --fn approve --fn-params '["0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045", 0]'
 ```
 
 It may also be run from within the Hardhat environment:
@@ -56,14 +56,14 @@ await hre.run('txn-dot-xyz-send', {
 
 ## Development
 
-Install dependencies via Yarn:
+Install dependencies via pnpm:
 
 ```bash
-yarn install
+pnpm install
 ```
 
 Setup Husky to format code on commit:
 
 ```bash
-yarn prepare
+pnpm prepare
 ```
