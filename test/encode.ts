@@ -5,7 +5,7 @@ import { describe, it } from 'node:test';
 import queryString from 'query-string';
 
 describe('encode', () => {
-  it('returns txn.xyz transaction URL with encoded query string', async () => {
+  it('returns txn.xyz v1 transaction URL with encoded query string', async () => {
     const chainId = '0x1';
     const to = '0x' + '0'.repeat(40);
     const fnSignature = 'test()';
@@ -18,13 +18,12 @@ describe('encode', () => {
 
     const parsed = queryString.parseUrl(url);
 
-    assert.equal(parsed.url, 'https://txn.xyz/v0/decode/');
+    assert.equal(parsed.url, 'https://txn.xyz/v1/decode');
 
     assert.deepEqual(parsed.query, {
-      chainID: '1',
-      contractAddress: to,
-      fn: 'test',
-      abi: '[{"type":"function","name":"test","constant":false,"payable":false,"inputs":[],"outputs":[]}]',
+      chainId: '1',
+      to,
+      fnSignature,
     });
   });
 
@@ -39,13 +38,37 @@ describe('encode', () => {
 
     const parsed = queryString.parseUrl(url);
 
-    assert.equal(parsed.url, 'https://txn.xyz/v0/decode/');
+    assert.equal(parsed.url, 'https://txn.xyz/v1/decode');
 
     assert.deepEqual(parsed.query, {
-      chainID: '31337',
-      contractAddress: to,
-      fn: 'test',
-      abi: '[{"type":"function","name":"test","constant":false,"payable":false,"inputs":[],"outputs":[]}]',
+      chainId: '31337',
+      to,
+      fnSignature,
+    });
+  });
+
+  it('encodes function arguments as a JSON array', async () => {
+    const chainId = '0x1';
+    const to = '0x' + '0'.repeat(40);
+    const fnSignature = 'transfer(address,uint256)';
+    const fnParams = [to, '100'];
+
+    const url = await encode(hre, {
+      chainId,
+      to,
+      fnSignature,
+      fnParams,
+    });
+
+    const parsed = queryString.parseUrl(url);
+
+    assert.equal(parsed.url, 'https://txn.xyz/v1/decode');
+
+    assert.deepEqual(parsed.query, {
+      chainId: '1',
+      to,
+      fnSignature,
+      fnArgs: JSON.stringify(fnParams),
     });
   });
 });
