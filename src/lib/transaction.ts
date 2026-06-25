@@ -1,13 +1,13 @@
 import pkg from '../../package.json' with { type: 'json' };
-import type { TransactionOptions, TxnDotXyzV0Query } from '../types.js';
-import { FormatTypes, Interface } from '@ethersproject/abi';
+import type { TransactionOptions, TxnDotXyzV1Query } from '../types.js';
+import { Interface } from '@ethersproject/abi';
 import { HardhatPluginError } from 'hardhat/plugins';
 import type { HardhatRuntimeEnvironment } from 'hardhat/types/hre';
 import readline from 'node:readline';
 import open from 'open';
 import queryString from 'query-string';
 
-const API_ENDPOINT = 'https://txn.xyz/v0/decode/';
+const API_ENDPOINT = 'https://txn.xyz/v1/decode';
 
 export const encode = async (
   hre: HardhatRuntimeEnvironment,
@@ -15,22 +15,16 @@ export const encode = async (
 ) => {
   const { provider } = await hre.network.create();
 
-  // note case change in variable name (chainId => chainID)
-  const chainID = parseInt(
+  const chainId = parseInt(
     args.chainId ??
       ((await provider.request({ method: 'eth_chainId' })) as string),
   );
 
-  const { to } = args;
-
-  const { fnSignature } = args;
-
-  // API v0 expects `fn` to be a function name without full signature
-  const [fn] = fnSignature.split('(');
-
-  const contractInterface = new Interface([`function ${fnSignature}`]);
-
+  const { to, fnSignature } = args;
   const fnParams = args.fnParams ?? [];
+
+  // validate args locally before generating the URL
+  const contractInterface = new Interface([`function ${fnSignature}`]);
 
   try {
     contractInterface.encodeFunctionData(fnSignature, fnParams);
@@ -41,17 +35,14 @@ export const encode = async (
     );
   }
 
-  const abi = contractInterface.format(FormatTypes.json) as string;
-
-  const query: TxnDotXyzV0Query = {
-    chainID,
-    contractAddress: to,
-    fn,
-    abi,
+  const query: TxnDotXyzV1Query = {
+    chainId,
+    to,
+    fnSignature,
   };
 
   if (fnParams.length) {
-    query.fnParams = fnParams.map((arg, index) => `${index}=${arg}`).join(',');
+    query.fnArgs = JSON.stringify(fnParams);
   }
 
   return queryString.stringifyUrl({ url: API_ENDPOINT, query });

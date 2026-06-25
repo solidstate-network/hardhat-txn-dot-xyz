@@ -10,10 +10,9 @@ export interface ExportTxnDotXyzSendArguments extends TransactionOptions {
   prompt: boolean;
 }
 
-export type TxnDotXyzV0Query = {
-  chainID: number;
-  contractAddress: string;
-  fn: string;
-  fnParams?: string;
-  abi?: string;
+export type TxnDotXyzV1Query = {
+  chainId: number;
+  to: string;
+  fnSignature: string;
+  fnArgs?: string;
 };
